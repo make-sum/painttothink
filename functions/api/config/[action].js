@@ -39,7 +39,7 @@ export async function onRequest(context) {
           tagline: "Commercial & Residential Construction",
           tag: "Portland, Oregon",
           description: "Commercial and residential construction company based in Portland, Oregon with over 30 years of experience",
-          email: "info@painttothinkdesigns.com",
+          email: "da@paint.toth.ink",
           phone: "(503) 998-9294",
           address: "Portland, Oregon",
           copyright: "© Paint To Think, 2000"
