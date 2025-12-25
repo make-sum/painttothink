@@ -78,6 +78,9 @@ export function Navigation() {
   // Force centering for screens wider than 768px
   const shouldCenterMenu = isLandscape || (windowWidth > 0 && windowWidth >= 768)
   const isPortraitMode = !shouldCenterMenu && orientation === 'portrait'
+  
+  // For landscape/wide screens, position menu on the left side (not centered)
+  // For portrait mode, position on bottom right
 
   // Navigation items from configuration with translations
   const navItems = siteConfig.navigation.main.map(item => ({
@@ -103,24 +106,12 @@ export function Navigation() {
             bottom: '1rem',
             right: '1.5rem', // 24px
             zIndex: 50
-          } : shouldCenterMenu ? {
-            position: 'fixed',
-            left: '50%',
-            top: '50%',
-            transform: 'translate(-50%, -50%)',
-            zIndex: 50,
-            width: '5rem',
-            height: 'auto',
-            bottom: 'auto',
-            right: 'auto'
           } : undefined}
           className={cn(
             "bg-background/80 backdrop-blur-lg shadow-lg shadow-black/10 dark:shadow-white/5 rounded-2xl",
             isPortraitMode
               ? "h-16 w-auto" 
-              : shouldCenterMenu 
-                ? "!fixed !left-1/2 !top-1/2 !-translate-x-1/2 !-translate-y-1/2 !w-20 !h-auto !z-50 !bottom-auto !right-auto" // Force centering with important
-                : "fixed left-4 top-1/2 -translate-y-1/2 w-20 h-auto z-50"
+              : "fixed left-4 top-1/2 -translate-y-1/2 w-20 h-auto z-50"
           )}
         >
           <div className={cn(

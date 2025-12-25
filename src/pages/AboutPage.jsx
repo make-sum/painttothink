@@ -18,7 +18,6 @@ export function AboutPage() {
       title={t('about.title')}
     >
       <div className="space-y-8">
-        <img src="/img/about.jpg" alt="About Us" className="w-full h-64 object-cover rounded-xl mb-6" />
         <img src="/img/la.jpg" alt="Los Angeles" className="w-full h-64 object-cover rounded-xl mb-6" />
         <div>
           <h3 className="text-2xl font-semibold mb-4">{t('about.title')}</h3>
@@ -71,16 +70,16 @@ export function AboutPage() {
           </div>
         </div>
 
-                 <div>
-           <h3 className="text-2xl font-semibold mb-4">{t('about.services')}</h3>
-           <ul className="space-y-2">
-             {siteConfig.about.services.map((service) => (
-               <li key={service} className="text-lg text-muted-foreground">
-                 • {service}
-               </li>
-             ))}
-           </ul>
-         </div>        
+        <div>
+          <h3 className="text-2xl font-semibold mb-4">{t('about.services')}</h3>
+          <ul className="space-y-2">
+            {siteConfig.services?.map((service) => (
+              <li key={service.id || service.title} className="text-lg text-muted-foreground">
+                • {service.title}
+              </li>
+            ))}
+          </ul>
+        </div>        
       </div>
 
       {/* Toast Notification */}

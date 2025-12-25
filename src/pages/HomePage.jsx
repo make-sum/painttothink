@@ -164,7 +164,7 @@ export function HomePage() {
       <BottomSheet
         isOpen={!!selectedService}
         onClose={() => setSelectedService(null)}
-        title={selectedService?.title}
+        title={selectedService ? (t(`services.${selectedService.id}.title`) || selectedService.title) : ''}
       >
         {selectedService && (
           <div>
@@ -178,7 +178,7 @@ export function HomePage() {
               preload="auto"
             />
             <p className="text-lg leading-relaxed">
-              {selectedService.details}
+              {t(`services.${selectedService.id}.details`) || selectedService.details}
             </p>
           </div>
         )}

@@ -2,8 +2,15 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { cn } from '../lib/utils'
 import { LazyVideo } from './LazyVideo'
+import { useTranslation } from '../hooks/useTranslation'
 
 export function ServiceCard({ service, index, onClick }) {
+  const { t } = useTranslation()
+  
+  // Get translated service data
+  const serviceKey = service.id || `service-${index + 1}`
+  const title = t(`services.${serviceKey}.title`) || service.title
+  const description = t(`services.${serviceKey}.description`) || service.description
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
@@ -36,10 +43,10 @@ export function ServiceCard({ service, index, onClick }) {
       
       <div className="mt-6 text-center">
         <h3 className="text-xl font-medium text-foreground">
-          {service.title}
+          {title}
         </h3>
         <p className="mt-1 text-muted-foreground">
-          {service.description}
+          {description}
         </p>
       </div>
     </motion.div>
