@@ -1,12 +1,5 @@
 {
   "version": 1,
-  "include": ["/*"],
-  "exclude": [
-    "/api/*",
-    "/assets/*",
-    "/fonts/*",
-    "/img/*",
-    "/config/*"
-  ]
+  "include": ["/api/*"],
+  "exclude": []
 }
-
