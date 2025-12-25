@@ -26,7 +26,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
-import { Home, Info, Briefcase, Mail } from 'lucide-react'
+import { Home, Info, Briefcase, Mail, Shield, HelpCircle } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { cn } from '../lib/utils'
 import { useScrollDirection } from '../hooks/useScrollDirection'
@@ -38,11 +38,13 @@ import { LanguageToggle } from './LanguageToggle'
 
 // Icon mapping for navigation items
 // Add new icons here when extending navigation options
+// ⚠️ If a config uses an icon not in this map, HelpCircle is used as fallback
 const iconMap = {
   home: Home,
   info: Info,
   briefcase: Briefcase,
-  mail: Mail
+  mail: Mail,
+  shield: Shield,
 }
 
 /**
@@ -123,7 +125,8 @@ export function Navigation() {
               isPortraitMode ? "flex-row gap-2" : "flex-col gap-4"
             )}>
               {visibleNavItems.map((item) => {
-                const Icon = iconMap[item.icon]
+                // Fallback to HelpCircle if icon not found in map
+                const Icon = iconMap[item.icon] || HelpCircle
                 return (
                   <NavLink
                     key={item.href}

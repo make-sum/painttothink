@@ -84,6 +84,7 @@ function getWebGLFingerprint() {
 }
 
 // Audio fingerprint (audio stack-specific)
+// Uses AnalyserNode instead of deprecated ScriptProcessorNode
 function getAudioFingerprint() {
   return new Promise((resolve) => {
     try {
@@ -97,34 +98,38 @@ function getAudioFingerprint() {
       const oscillator = context.createOscillator();
       const analyser = context.createAnalyser();
       const gain = context.createGain();
-      const processor = context.createScriptProcessor(4096, 1, 1);
+      
+      // Configure analyser
+      analyser.fftSize = 256;
+      const bufferLength = analyser.frequencyBinCount;
+      const dataArray = new Uint8Array(bufferLength);
       
       oscillator.type = 'triangle';
       oscillator.frequency.setValueAtTime(10000, context.currentTime);
       
+      // Mute output
       gain.gain.setValueAtTime(0, context.currentTime);
       
       oscillator.connect(analyser);
-      analyser.connect(processor);
-      processor.connect(gain);
+      analyser.connect(gain);
       gain.connect(context.destination);
-      
-      let fingerprint = 0;
-      processor.onaudioprocess = (event) => {
-        const data = event.inputBuffer.getChannelData(0);
-        for (let i = 0; i < data.length; i++) {
-          fingerprint += Math.abs(data[i]);
-        }
-      };
       
       oscillator.start(0);
       
+      // Sample after brief delay
       setTimeout(() => {
+        analyser.getByteFrequencyData(dataArray);
+        
+        // Generate fingerprint from frequency data
+        let fingerprint = 0;
+        for (let i = 0; i < bufferLength; i++) {
+          fingerprint += dataArray[i];
+        }
+        
         oscillator.stop();
-        processor.disconnect();
-        context.close();
+        context.close().catch(() => {});
         resolve(fingerprint.toString());
-      }, 100);
+      }, 50);
     } catch (e) {
       resolve(null);
     }
