@@ -44,7 +44,9 @@ export async function onRequest(context) {
     }
 
     const url = new URL(request.url);
-    const prefix = url.searchParams.get('prefix') || 'visitor:';
+    const source = url.searchParams.get('source') || 'painttothink';
+    const type = url.searchParams.get('type') || 'visitor';
+    const prefix = url.searchParams.get('prefix') || `${source}:${type}:`;
     const limit = parseInt(url.searchParams.get('limit') || '50');
 
     // List keys

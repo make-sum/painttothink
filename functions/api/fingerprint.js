@@ -52,8 +52,12 @@ export async function onRequest(context) {
       httpProtocol: request.cf?.httpProtocol,
     };
 
+    // Source tag for pow3r.dogg dashboard filtering
+    const SOURCE_TAG = 'painttothink';
+    
     // Create fingerprint record
     const fingerprintRecord = {
+      source: SOURCE_TAG,
       visitorId,
       timestamp,
       serverSignals,
@@ -68,19 +72,22 @@ export async function onRequest(context) {
       }
     };
 
-    // Store in KV with visitor ID as key
+    // Store in KV with visitor ID as key (tagged with source)
     const kv = env.FINGERPRINT_DATA;
     if (kv) {
-      // Store current fingerprint
+      // Store current fingerprint (prefixed with source for dashboard filtering)
       await kv.put(
-        `fp:${visitorId}:${timestamp}`,
+        `${SOURCE_TAG}:fp:${visitorId}:${timestamp}`,
         JSON.stringify(fingerprintRecord),
         { expirationTtl: 60 * 60 * 24 * 90 } // 90 days
       );
 
       // Update visitor profile (most recent data)
-      const existingProfile = await kv.get(`visitor:${visitorId}`);
-      const profile = existingProfile ? JSON.parse(existingProfile) : { visits: [] };
+      const existingProfile = await kv.get(`${SOURCE_TAG}:visitor:${visitorId}`);
+      const profile = existingProfile ? JSON.parse(existingProfile) : { 
+        source: SOURCE_TAG,
+        visits: [] 
+      };
       
       profile.lastSeen = timestamp;
       profile.visits.push({
@@ -101,35 +108,51 @@ export async function onRequest(context) {
       };
 
       await kv.put(
-        `visitor:${visitorId}`,
+        `${SOURCE_TAG}:visitor:${visitorId}`,
         JSON.stringify(profile),
         { expirationTtl: 60 * 60 * 24 * 365 } // 1 year
       );
 
       // Index by IP for cross-referencing
       await kv.put(
-        `ip:${serverSignals.ip}:${visitorId}`,
+        `${SOURCE_TAG}:ip:${serverSignals.ip}:${visitorId}`,
         timestamp,
         { expirationTtl: 60 * 60 * 24 * 90 }
       );
     }
 
-    // Optional: Forward to pow3r.dogg for advanced analysis
-    // This would integrate with the pow3r defender API
-    // Uncomment when pow3r.dogg worker is deployed:
-    /*
-    if (env.POW3R_WEBHOOK_URL) {
-      await fetch(env.POW3R_WEBHOOK_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          source: 'paint.toth.ink',
-          type: 'fingerprint',
-          data: fingerprintRecord,
-        }),
-      });
+    // Forward to pow3r.dogg dashboard for advanced analysis
+    // Uses pow3r-defender worker API
+    const POW3R_WEBHOOK_URL = env.POW3R_WEBHOOK_URL || 'https://pow3r-defender.memorymusicllc.workers.dev/api/ingest';
+    
+    try {
+      // Non-blocking webhook call (don't await, use waitUntil if available)
+      const webhookPayload = {
+        source: SOURCE_TAG,
+        type: 'fingerprint',
+        timestamp,
+        data: fingerprintRecord,
+        meta: {
+          domain: 'paint.toth.ink',
+          endpoint: '/api/fingerprint',
+        }
+      };
+      
+      // Fire and forget - don't block response
+      context.waitUntil?.(
+        fetch(POW3R_WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 
+            'Content-Type': 'application/json',
+            'X-Source': SOURCE_TAG,
+          },
+          body: JSON.stringify(webhookPayload),
+        }).catch(err => console.error('pow3r.dogg webhook failed:', err))
+      );
+    } catch (webhookError) {
+      // Non-critical - don't fail the request
+      console.error('pow3r.dogg webhook error:', webhookError);
     }
-    */
 
     return new Response(JSON.stringify({ 
       success: true, 
