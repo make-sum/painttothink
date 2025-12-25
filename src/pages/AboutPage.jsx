@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { BottomSheet } from '../components/BottomSheet'
 import { useConfig } from '../hooks/useConfig'
 import { useTranslation } from '../hooks/useTranslation'
+import defaultConfigData from '../config/site.config.json'
 
 export function AboutPage() {
   const navigate = useNavigate()
@@ -10,6 +11,9 @@ export function AboutPage() {
   const [showToast, setShowToast] = useState(false)
   const siteConfig = useConfig()
   const { t } = useTranslation()
+  
+  // Use defaultConfigData services to ensure we have the correct services
+  const services = defaultConfigData.services || siteConfig.services || []
 
   return (
     <BottomSheet
@@ -29,11 +33,11 @@ export function AboutPage() {
         <div className="grid grid-cols-2 gap-4 text-center">
           <div>
             <p className="text-3xl font-semibold">{siteConfig.about.experience}</p>
-            <p className="text-sm text-muted-foreground">Experience</p>
+            <p className="text-sm text-muted-foreground">{t('about.experienceLabel') || 'Experience'}</p>
           </div>
           <div>
             <p className="text-3xl font-semibold">{siteConfig.about.projects}</p>
-            <p className="text-sm text-muted-foreground">Projects</p>
+            <p className="text-sm text-muted-foreground">{t('about.projectsLabel') || 'Projects'}</p>
           </div>
         </div>
 
@@ -73,11 +77,21 @@ export function AboutPage() {
         <div>
           <h3 className="text-2xl font-semibold mb-4">{t('about.services')}</h3>
           <ul className="space-y-2">
-            {siteConfig.services?.map((service) => (
-              <li key={service.id || service.title} className="text-lg text-muted-foreground">
-                • {service.title}
-              </li>
-            ))}
+            {services.map((service) => {
+              // Ensure we use the service.id from the config (service-1, service-2, etc.)
+              const serviceId = service.id
+              if (!serviceId || !serviceId.startsWith('service-')) {
+                // Skip services that don't have the correct ID format
+                return null
+              }
+              // Get translated title using the service ID
+              const serviceTitle = t(`services.${serviceId}.title`)
+              return (
+                <li key={serviceId} className="text-lg text-muted-foreground">
+                  • {serviceTitle}
+                </li>
+              )
+            }).filter(Boolean)}
           </ul>
         </div>        
       </div>
