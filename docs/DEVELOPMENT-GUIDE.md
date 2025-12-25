@@ -31,13 +31,12 @@ open http://localhost:5173
 npm run build
 
 # 2. Deploy to Cloudflare Pages
-npm run deploy
-# Or use direct deployment script:
-node deploy-worker-direct.js
+# ⚠️ Use YOUR project name from: wrangler pages project list
+wrangler pages deploy dist --project-name=YOUR_PROJECT_NAME
 
 # 3. Commit changes
 git add -A && git commit -m "Your changes"
-git push painttothink main
+git push origin main
 ```
 
 ## 🧩 **Creating New Components**

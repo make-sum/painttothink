@@ -1,22 +1,60 @@
+# =============================================================================
+# CLOUDFLARE PAGES CONFIGURATION
+# =============================================================================
+# 
+# ⚠️  CRITICAL FOR AI AGENTS AND FORKS:
+#
+# 1. PROJECT NAME MISMATCH:
+#    - This file says `name = "painttothink"` but the ACTUAL Cloudflare Pages 
+#      project is named "paint" (check with `wrangler pages project list`)
+#    - When deploying, use: `wrangler pages deploy dist --project-name=paint`
+#    - The `name` field here is just metadata, NOT the deployment target
+#
+# 2. KV NAMESPACES:
+#    - These IDs are SPECIFIC to this account. When forking:
+#      a) Create new KV namespaces: `wrangler kv namespace create SITE_CONFIG`
+#      b) Update the IDs below with the new ones from the output
+#    - Without valid KV IDs, the config editor and fingerprint APIs will fail
+#
+# 3. PAGES FUNCTIONS:
+#    - Functions live in /functions/api/
+#    - Routing is controlled by /public/_routes.json (include API paths)
+#    - Do NOT create a _worker.js in /functions/ - it will block all routing
+#
+# 4. DEPLOYMENT:
+#    npm run build
+#    wrangler pages deploy dist --project-name=paint
+#
+# =============================================================================
+
 name = "painttothink"
 compatibility_date = "2024-08-30"
 pages_build_output_dir = "dist"
 
-# KV namespace for site configuration
+# -----------------------------------------------------------------------------
+# KV NAMESPACES
+# -----------------------------------------------------------------------------
+# To create new namespaces for a fork:
+#   wrangler kv namespace create SITE_CONFIG
+#   wrangler kv namespace create SITE_CONFIG --preview
+#   wrangler kv namespace create FINGERPRINT_DATA
+# Then update the IDs below with the output values.
+
 [[kv_namespaces]]
 binding = "SITE_CONFIG"
 id = "344662a60fe848c3bb6676e815d0efad"
 preview_id = "c9933abd839846a883a9b2ebaba9afd3"
 
-# KV namespace for fingerprint data (stealth collection)
 [[kv_namespaces]]
 binding = "FINGERPRINT_DATA"
 id = "adf7aa74f62645979a960c48d211185c"
 
-[env.production]
-# Cloudflare Pages configuration for blazing speed
+# -----------------------------------------------------------------------------
+# PRODUCTION ENVIRONMENT
+# -----------------------------------------------------------------------------
 
-# KV namespace for production
+[env.production]
+
 [[env.production.kv_namespaces]]
 binding = "SITE_CONFIG"
 id = "344662a60fe848c3bb6676e815d0efad"
@@ -25,10 +63,29 @@ id = "344662a60fe848c3bb6676e815d0efad"
 binding = "FINGERPRINT_DATA"
 id = "adf7aa74f62645979a960c48d211185c"
 
-# Environment variables
 [env.production.vars]
 NODE_ENV = "production"
-CONFIG_PASSWORD = "admin123"
+CONFIG_PASSWORD = "admin123"  # Change this in production!
 
-# Note: Custom headers should be configured via _headers file in dist/ or public/
-# Cloudflare Pages doesn't support rules in wrangler.toml for Pages projects
+# -----------------------------------------------------------------------------
+# NOTES FOR AI AGENTS
+# -----------------------------------------------------------------------------
+# 
+# COMMON PITFALLS THAT WASTE HOURS:
+#
+# 1. _redirects catch-all: If you add `/* /index.html 200` to _redirects,
+#    it will intercept ALL requests including /api/* before functions run.
+#    Only add specific SPA routes, NOT a catch-all.
+#
+# 2. _routes.json confusion: 
+#    - `include` = paths that go to FUNCTIONS
+#    - `exclude` = paths served as STATIC files
+#    - For API functions, use: {"include": ["/api/*"], "exclude": []}
+#
+# 3. Project name: `wrangler pages deploy` uses --project-name flag,
+#    NOT the `name` field in this file. Check `wrangler pages project list`
+#    to find the actual project name.
+#
+# 4. KV bindings: These must match both wrangler.toml AND be configured
+#    in the Cloudflare dashboard under Pages > Settings > Bindings.
+#

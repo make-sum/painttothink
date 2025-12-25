@@ -1,11 +1,26 @@
-# Cloudflare Pages SPA Redirects
-# All routes serve index.html for client-side routing
-# IMPORTANT: Do NOT catch /api/* - those are handled by Functions
+# =============================================================================
+# CLOUDFLARE PAGES REDIRECTS
+# =============================================================================
+#
+# ⚠️  CRITICAL: DO NOT ADD A CATCH-ALL RULE LIKE `/* /index.html 200`
+#
+# A catch-all will intercept ALL requests, including /api/* paths,
+# BEFORE Cloudflare Pages Functions can handle them. This breaks:
+# - /api/config/get
+# - /api/config/update  
+# - /api/fingerprint
+# - Any other API endpoints
+#
+# Only add SPECIFIC SPA routes here. API routing is handled by:
+# - _routes.json (tells CF which paths go to functions)
+# - /functions/api/ directory (the actual function code)
+#
+# =============================================================================
 
-# SPA routes - add new client routes here
+# SPA Routes - Add new client-side routes here
 /about /index.html 200
-/services /index.html 200  
+/services /index.html 200
 /contact /index.html 200
 
-# Catch-all for SPA routes EXCEPT api and static assets
-# Note: Functions and _routes.json handle /api/* paths
+# DO NOT ADD: /* /index.html 200
+# This was the cause of hours of debugging. It blocks API routes.
