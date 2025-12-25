@@ -3,67 +3,42 @@ import defaultConfig from '../config/site.config.json'
 
 // Cache config to prevent re-parsing
 let cachedConfig = null
-let configPromise = null
 
 export function useConfig() {
   const [config, setConfig] = useState(() => {
-    // Always return defaultConfig immediately to ensure services are available
-    // This prevents empty services array on first render
+    // Return cached config if available
     if (cachedConfig) return cachedConfig
     
-    // Try to load from localStorage synchronously on first render
-    try {
-      const savedConfig = localStorage.getItem('siteConfig')
-      if (savedConfig) {
-        const parsedConfig = JSON.parse(savedConfig)
-        // Only use saved config if it has services
-        if (parsedConfig?.services && parsedConfig.services.length > 0) {
-          cachedConfig = parsedConfig
-          return parsedConfig
-        }
-      }
-    } catch (e) {
-      console.error('Failed to parse saved config:', e)
-    }
-    
-    // Always return default config to ensure services are available
+    // Start with default config for immediate render
     cachedConfig = defaultConfig
     return defaultConfig
   })
 
   useEffect(() => {
-    // TEMPORARILY DISABLED API CALL - Using default config to fix videos
-    // The API was returning config without services array, breaking video display
-    // TODO: Fix API to return proper config with services
-    
-    // Ensure default config is set if not already
-    if (!cachedConfig || !cachedConfig.services || cachedConfig.services.length === 0) {
-      cachedConfig = defaultConfig
-      setConfig(defaultConfig)
-    }
-    
-    // Load initial config from API (disabled for now)
-    /*
+    // Load config from Cloudflare KV via API
     const loadConfig = async () => {
       try {
         const res = await fetch('/api/config/get')
+        if (!res.ok) throw new Error('Failed to fetch config')
+        
         const apiConfig = await res.json()
-        // Only use API config if it has services
+        
+        // Only use API config if it has valid services
         if (apiConfig?.services && apiConfig.services.length > 0) {
           cachedConfig = apiConfig
           setConfig(apiConfig)
-          localStorage.setItem('siteConfig', JSON.stringify(apiConfig))
         }
       } catch (error) {
-        console.error('Failed to load config from API:', error)
-        // Keep using default config
+        console.error('Failed to load config from API, using default:', error)
+        // Keep using default config on error
       }
     }
+    
     loadConfig()
-    */
 
-    // Listen for config updates from other tabs/components
+    // Listen for config updates from ConfigEditor
     const handleConfigUpdate = (event) => {
+      cachedConfig = event.detail
       setConfig(event.detail)
     }
 

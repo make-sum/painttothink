@@ -5,8 +5,8 @@ pages_build_output_dir = "dist"
 # KV namespace for site configuration
 [[kv_namespaces]]
 binding = "SITE_CONFIG"
-id = "c4f7e8abe48b4965a246db46ca681641"
-preview_id = "18ffe1fc12b648fbb54a97560eda6a6c"
+id = "344662a60fe848c3bb6676e815d0efad"
+preview_id = "c9933abd839846a883a9b2ebaba9afd3"
 
 [env.production]
 # Cloudflare Pages configuration for blazing speed
@@ -14,7 +14,7 @@ preview_id = "18ffe1fc12b648fbb54a97560eda6a6c"
 # KV namespace for production
 [[env.production.kv_namespaces]]
 binding = "SITE_CONFIG"
-id = "c4f7e8abe48b4965a246db46ca681641"
+id = "344662a60fe848c3bb6676e815d0efad"
 
 # Environment variables
 [env.production.vars]

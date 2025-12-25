@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, Save, Eye, EyeOff } from 'lucide-react'
+import { X, Save, Eye, EyeOff, Loader2, Check, AlertCircle } from 'lucide-react'
 import { cn } from '../lib/utils'
 
 const CONFIG_PASSWORD = 'admin123' // In production, use environment variable
@@ -11,24 +11,40 @@ export function ConfigEditor({ isOpen, onClose }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [config, setConfig] = useState('')
   const [error, setError] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+  const [isSaving, setIsSaving] = useState(false)
+  const [saveSuccess, setSaveSuccess] = useState(false)
 
   useEffect(() => {
     if (isOpen && isAuthenticated) {
-      // Load current config from API
-      fetch('/api/config/get')
-        .then(res => res.json())
-        .then(data => {
-          setConfig(JSON.stringify(data, null, 2))
-        })
-        .catch(err => {
-          console.error('Failed to load config:', err)
-          // Fallback to default config
-          import('../config/site.config.json').then(module => {
-            setConfig(JSON.stringify(module.default, null, 2))
-          })
-        })
+      loadConfigFromKV()
     }
   }, [isOpen, isAuthenticated])
+
+  // Load config from Cloudflare KV
+  const loadConfigFromKV = async () => {
+    setIsLoading(true)
+    setError('')
+    try {
+      const res = await fetch('/api/config/get')
+      if (!res.ok) throw new Error('Failed to fetch config from database')
+      
+      const data = await res.json()
+      setConfig(JSON.stringify(data, null, 2))
+    } catch (err) {
+      console.error('Failed to load config from KV:', err)
+      // Fallback to default config
+      try {
+        const module = await import('../config/site.config.json')
+        setConfig(JSON.stringify(module.default, null, 2))
+        setError('Loaded default config (database unavailable)')
+      } catch {
+        setError('Failed to load config')
+      }
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   const handlePasswordSubmit = (e) => {
     e.preventDefault()
@@ -40,11 +56,17 @@ export function ConfigEditor({ isOpen, onClose }) {
     }
   }
 
+  // Save config to Cloudflare KV
   const handleSave = async () => {
+    setIsSaving(true)
+    setError('')
+    setSaveSuccess(false)
+    
     try {
+      // Validate JSON first
       const parsedConfig = JSON.parse(config)
       
-      // Save to API
+      // Save to Cloudflare KV via API
       const response = await fetch('/api/config/update', {
         method: 'PUT',
         headers: {
@@ -55,19 +77,22 @@ export function ConfigEditor({ isOpen, onClose }) {
       })
       
       if (!response.ok) {
-        throw new Error('Failed to save config')
+        const errorData = await response.json().catch(() => ({}))
+        throw new Error(errorData.error || 'Failed to save to database')
       }
-      
-      // Also save to localStorage as a cache
-      localStorage.setItem('siteConfig', config)
       
       // Broadcast the change to all components immediately
       window.dispatchEvent(new CustomEvent('configUpdated', { detail: parsedConfig }))
       
-      alert('Config saved! Changes are now persistent and visible to all visitors.')
-      onClose()
+      setSaveSuccess(true)
+      setTimeout(() => {
+        setSaveSuccess(false)
+        onClose()
+      }, 1500)
     } catch (e) {
       setError(e.message || 'Invalid JSON format')
+    } finally {
+      setIsSaving(false)
     }
   }
 
@@ -140,25 +165,61 @@ export function ConfigEditor({ isOpen, onClose }) {
               </form>
             ) : (
               <div>
-                <textarea
-                  value={config}
-                  onChange={(e) => setConfig(e.target.value)}
-                  className={cn(
-                    "w-full h-[60vh] p-4 rounded-lg border",
-                    "bg-background font-mono text-sm",
-                    "focus:outline-none focus:ring-2 focus:ring-foreground"
-                  )}
-                  spellCheck={false}
-                />
+                {isLoading ? (
+                  <div className="w-full h-[60vh] flex items-center justify-center">
+                    <div className="flex flex-col items-center gap-4">
+                      <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+                      <p className="text-muted-foreground">Loading config from database...</p>
+                    </div>
+                  </div>
+                ) : (
+                  <textarea
+                    value={config}
+                    onChange={(e) => setConfig(e.target.value)}
+                    className={cn(
+                      "w-full h-[60vh] p-4 rounded-lg border",
+                      "bg-background font-mono text-sm",
+                      "focus:outline-none focus:ring-2 focus:ring-foreground"
+                    )}
+                    spellCheck={false}
+                  />
+                )}
                 {error && (
-                  <p className="mt-2 text-sm text-red-500">{error}</p>
+                  <p className="mt-2 text-sm text-red-500 flex items-center gap-2">
+                    <AlertCircle className="h-4 w-4" />
+                    {error}
+                  </p>
+                )}
+                {saveSuccess && (
+                  <p className="mt-2 text-sm text-green-500 flex items-center gap-2">
+                    <Check className="h-4 w-4" />
+                    Config saved to database successfully!
+                  </p>
                 )}
                 <button
                   onClick={handleSave}
-                  className="mt-4 px-6 py-2 bg-foreground text-background rounded-lg hover:opacity-90 transition-opacity flex items-center gap-2"
+                  disabled={isSaving || isLoading}
+                  className={cn(
+                    "mt-4 px-6 py-2 bg-foreground text-background rounded-lg transition-all flex items-center gap-2",
+                    (isSaving || isLoading) ? "opacity-50 cursor-not-allowed" : "hover:opacity-90"
+                  )}
                 >
-                  <Save className="h-4 w-4" />
-                  Save Configuration
+                  {isSaving ? (
+                    <>
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      Saving to Database...
+                    </>
+                  ) : saveSuccess ? (
+                    <>
+                      <Check className="h-4 w-4" />
+                      Saved!
+                    </>
+                  ) : (
+                    <>
+                      <Save className="h-4 w-4" />
+                      Save to Database
+                    </>
+                  )}
                 </button>
               </div>
             )}

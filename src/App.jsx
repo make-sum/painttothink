@@ -21,8 +21,10 @@ function AppContent() {
 
   useEffect(() => {
     // Check URL params for config editor
+    // Supports ?config=true, ?config=t, or just ?config
     const params = new URLSearchParams(window.location.search)
-    if (params.get('config') === 'true') {
+    const configParam = params.get('config')
+    if (configParam === 'true' || configParam === 't' || configParam === '') {
       setShowConfig(true)
     }
   }, [])
