@@ -1,0 +1,163 @@
+{  "site": {    "name": "Colorwave Painting",    "tagline": "Premium Painting for LA Apartments & Condos",    "tag": "Los Angeles, California",    "description": "Expert interior painting, touch-ups, and custom paint design",    "email": "hello@paint.toth.ink",    "phone": "323-477-9108",    "address": "Los Angeles, CA",    "copyright": "© Paint To Think, 2000"  },  "navigation": {    "main": [      { "label": "Home", "href": "/", "icon": "home" },      { "label": "About", "href": "/about", "icon": "info" },      { "label": "Services", "href": "/services", "icon": "briefcase" },      { "label": "Tenant Rights", "href": "/rights", "icon": "shield" },      { "label": "Contact", "href": "/contact", "icon": "mail" }    ]  },  "services": [    {      "id": "service-1",      "title": "Full Interior Painting",      "description": "Complete apartment and condo repaints",      "video": "/img/blonde-color.mp4",      "details": "Transform your entire living space with comprehensive interior painting. Walls, ceilings, trim, doors, and closets using premium low-VOC paints."    },    {      "id": "service-2",      "title": "Touch-Up & Repair",      "description": "Fix scuffs, holes, and wear marks",      "video": "/img/asian.mp4",      "details": "Expert touch-up services to repair nail holes, scuff marks, scratches, and minor wall damage. Perfect for move-out prep."    },    {      "id": "service-3",      "title": "Custom Paint Design",      "description": "Accent walls, patterns, and murals",      "video": "/img/paint-cans.mp4",      "details": "Custom accent walls, geometric patterns, color blocking, and hand-painted murals. Create a one-of-a-kind look."    },    {      "id": "service-4",      "title": "Move-Out Restoration",      "description": "Get your full deposit back",      "video": "/img/corner.mp4",      "details": "Professional paint restoration to return your unit to move-in condition. We match colors and ensure you get your deposit back."    },    {      "id": "service-5",      "title": "Cabinet Refinishing",      "description": "Modern kitchen without the remodel",      "video": "/img/elevator.mp4",      "details": "Update your kitchen or bathroom cabinets with professional refinishing at a fraction of replacement cost."    },    {      "id": "service-6",      "title": "Color Consultation",      "description": "Find your perfect palette",      "video": "/img/laughing.mp4",      "details": "Complimentary color consultation with every project. We help you choose colors you will love for years."    }  ],  "about": {    "content": "Colorwave Painting specializes in apartment and condo painting throughout Los Angeles. From quick touch-ups to full custom designs, we bring color and life to rental properties.",    "experience": "15+ years",    "projects": "2000+",    "services": ["Interior Painting", "Touch-Up", "Custom Design", "Cabinet Refinishing"]  },  "tenantRights": {
+    "pageTitle": {
+      "en": "Know Your Renter Rights",
+      "uk": "Знайте свої права орендаря"
+    },
+    "sections": [
+      {
+        "id": "section-1",
+        "type": "hero",
+        "title": {
+          "en": "Your rights matter. We make painting simple.",
+          "uk": "Ваші права важливі. Ми робимо фарбування простим."
+        },
+        "description": {
+          "en": "White-glove painting service. One call, done right.",
+          "uk": "Послуга фарбування під ключ. Один дзвінок — все готово."
+        },
+        "video": "/img/paint-cans.mp4"
+      },
+      {
+        "id": "section-2",
+        "type": "service",
+        "title": {
+          "en": "White-Glove Service",
+          "uk": "Послуга під ключ"
+        },
+        "description": {
+          "en": "One call, done right. From consultation to cleanup, we handle everything.",
+          "uk": "Один дзвінок — все готово. Від консультації до прибирання — ми все робимо."
+        },
+        "video": "/img/elevator.mp4"
+      },
+      {
+        "id": "section-3",
+        "type": "service",
+        "title": {
+          "en": "Ukrainian-Speaking Team",
+          "uk": "Команда, що розмовляє українською"
+        },
+        "description": {
+          "en": "We speak your language. Clear communication, no confusion.",
+          "uk": "Ми розмовляємо вашою мовою. Чітке спілкування, без плутанини."
+        },
+        "video": "/img/laughing.mp4"
+      },
+      {
+        "id": "section-4",
+        "type": "service",
+        "title": {
+          "en": "Custom Color Design",
+          "uk": "Індивідуальна палітра кольорів"
+        },
+        "description": {
+          "en": "Your vision, our expertise. We create color palettes that reflect your style.",
+          "uk": "Ваше бачення, наш досвід. Створюємо палітри кольорів, що відображають ваш стиль."
+        },
+        "video": "/img/blonde-color.mp4"
+      },
+      {
+        "id": "section-5",
+        "type": "service",
+        "title": {
+          "en": "Touch-Up Service",
+          "uk": "Послуга підфарбовування"
+        },
+        "description": {
+          "en": "Quick fixes that save your deposit. Scuffs, holes, scratches—we've got you covered.",
+          "uk": "Швидкі виправлення, що збережуть ваш депозит. Подряпини, дірки, подряпини — ми все покриємо."
+        },
+        "video": "/img/asian.mp4"
+      },
+      {
+        "id": "section-6",
+        "type": "rights",
+        "title": {
+          "en": "Know Your Rights",
+          "uk": "Знайте свої права"
+        },
+        "description": {
+          "en": "Normal wear and tear? Not your problem. Landlords can't charge you for minor scuffs or nail holes.",
+          "uk": "Звичайний знос? Не ваша проблема. Власники не можуть стягувати з вас за невеликі подряпини або дірки від цвяхів."
+        },
+        "code": "California Civil Code 1950.5",
+        "video": "/img/corner.mp4"
+      },
+      {
+        "id": "section-7",
+        "type": "rights",
+        "title": {
+          "en": "Habitability First",
+          "uk": "Придатність для проживання — на першому місці"
+        },
+        "description": {
+          "en": "Your landlord must maintain a habitable space. Peeling paint? That's on them, not you.",
+          "uk": "Ваш власник повинен підтримувати придатний для проживання простір. Облущується фарба? Це їхня відповідальність, а не ваша."
+        },
+        "code": "California Civil Code 1941",
+        "video": "/img/shirtless.mp4"
+      }
+    ],
+    "faq": {
+      "title": {
+        "en": "Frequently Asked Questions",
+        "uk": "Часті питання"
+      },
+      "items": [
+        {
+          "question": {
+            "en": "Can my landlord charge me for normal wear and tear?",
+            "uk": "Чи може мій власник стягувати з мене за звичайний знос?"
+          },
+          "answer": {
+            "en": "No. California law protects tenants from being charged for normal wear and tear. Minor scuffs, nail holes, and typical wear cannot be deducted from your security deposit.",
+            "uk": "Ні. Каліфорнійське законодавство захищає орендарів від стягнення за звичайний знос. Невеликі подряпини, дірки від цвяхів та типовий знос не можуть бути вирахувані з вашого депозиту."
+          }
+        },
+        {
+          "question": {
+            "en": "Who is responsible for peeling paint?",
+            "uk": "Хто відповідає за облущування фарби?"
+          },
+          "answer": {
+            "en": "Your landlord. Peeling paint is a habitability issue. They must maintain the property in habitable condition, including fixing peeling or damaged paint.",
+            "uk": "Ваш власник. Облущування фарби — це питання придатності для проживання. Вони повинні підтримувати нерухомість у придатному стані, включаючи виправлення облущеної або пошкодженої фарби."
+          }
+        },
+        {
+          "question": {
+            "en": "Do I need permission to paint my rental?",
+            "uk": "Чи потрібен мені дозвіл на фарбування моєї оренди?"
+          },
+          "answer": {
+            "en": "It depends on your lease. Some landlords allow painting with approval, others require restoration to original colors. Always check your lease agreement first.",
+            "uk": "Це залежить від вашого договору оренди. Деякі власники дозволяють фарбування з дозволу, інші вимагають відновлення до оригінальних кольорів. Завжди спочатку перевіряйте свій договір оренди."
+          }
+        },
+        {
+          "question": {
+            "en": "What if I need to paint before moving out?",
+            "uk": "Що робити, якщо мені потрібно пофарбувати перед виїздом?"
+          },
+          "answer": {
+            "en": "Our touch-up service can help restore walls to move-in condition. We match original colors and ensure you get your full deposit back.",
+            "uk": "Наша послуга підфарбовування може допомогти відновити стіни до стану на момент заселення. Ми підбираємо оригінальні кольори та гарантуємо повернення вашого депозиту."
+          }
+        },
+        {
+          "question": {
+            "en": "Do you offer services in Ukrainian?",
+            "uk": "Чи надаєте ви послуги українською мовою?"
+          },
+          "answer": {
+            "en": "Yes! Our team includes Ukrainian speakers. We provide clear communication in Ukrainian from consultation to completion.",
+            "uk": "Так! Наша команда включає тих, хто розмовляє українською. Ми забезпечуємо чітке спілкування українською від консультації до завершення."
+          }
+        }
+      ]
+    },
+    "cta": {
+      "en": "Ready to protect your rights and transform your space?",
+      "uk": "Готові захистити свої права та перетворити свій простір?"
+    }
+  },  "theme": {    "colors": {      "primary": "#1a1a2e",      "secondary": "#16213e",      "accent": "#e94560"    },    "fonts": {      "primary": "Geist"    }  }}

@@ -1,0 +1,70 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "contact": "Contact"
+  },
+  "site": {
+    "tagline": "Premium Painting Services",
+    "tag": "Expert interior painting, touch-ups, and custom paint design",
+    "email": "hello@paint.toth.ink",
+    "phone": "323-477-9108",
+    "address": "Los Angeles, CA",
+    "copyright": "© 2024 Paint To Think. All rights reserved."
+  },
+  "about": {
+    "title": "About Us",
+    "content": "Paint To Think specializes in premium painting services for apartments and condos. From quick touch-ups to full custom designs, we bring color and life to your space.",
+    "experience": "30+",
+    "projects": "500+",
+    "services": "Services",
+    "contact": "Contact"
+  },
+  "common": {
+    "more": "More about us",
+    "getInTouch": "Get in touch",
+    "bookNow": "Book now",
+    "clickToCopy": "(Click to copy)",
+    "emailCopied": "Email copied to clipboard",
+    "close": "Close"
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "items": [
+      {
+        "question": "Can my landlord charge me for normal wear and tear?",
+        "answer": "No. California law protects tenants from being charged for normal wear and tear. Minor scuffs, nail holes, and typical wear cannot be deducted from your security deposit."
+      },
+      {
+        "question": "Who is responsible for peeling paint?",
+        "answer": "Your landlord. Peeling paint is a habitability issue. They must maintain the property in habitable condition, including fixing peeling or damaged paint."
+      },
+      {
+        "question": "Do I need permission to paint my rental?",
+        "answer": "It depends on your lease. Some landlords allow painting with approval, others require restoration to original colors. Always check your lease agreement first."
+      },
+      {
+        "question": "What if I need to paint before moving out?",
+        "answer": "Our touch-up service can help restore walls to move-in condition. We match original colors and ensure you get your full deposit back."
+      },
+      {
+        "question": "Do you offer services in Russian?",
+        "answer": "Yes! Our team includes Russian speakers. We provide clear communication in Russian from consultation to completion."
+      },
+      {
+        "question": "How long does it take to paint an apartment?",
+        "answer": "Time depends on apartment size and scope of work. Typically, a full paint job for a one-bedroom takes 1-2 days, two-bedroom takes 2-3 days. We always provide accurate time estimates before starting."
+      },
+      {
+        "question": "What type of paint do you use?",
+        "answer": "We use only premium low-VOC (volatile organic compounds) paints that are safe for health and environment. All paints are certified for quality and durability."
+      },
+      {
+        "question": "Do you provide a warranty on your work?",
+        "answer": "Yes, we provide a warranty on all our work. If any issues arise with paint quality during the warranty period, we'll fix them at no charge."
+      }
+    ]
+  }
+}
+
