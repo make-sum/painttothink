@@ -60,7 +60,7 @@ export function HomePage() {
   return (
     <div className="min-h-screen pb-28 lg:pl-28">
       {/* Hero Section */}
-      <section className="max-w-7xl mx-auto px-[104px] pt-24 pb-16">
+      <section className="max-w-7xl mx-auto px-[46px] min-[480px]:px-[104px] pt-24 pb-16">
         <div className="flex justify-start mb-12">
           <ProgressLoader progress={progress} size={72} />
         </div>
@@ -83,7 +83,7 @@ export function HomePage() {
       </section>
 
       {/* Services Grid - Force render with defaultConfigData */}
-      <section className="max-w-7xl mx-auto px-[104px] pb-32">
+      <section className="max-w-7xl mx-auto px-[46px] min-[480px]:px-[104px] pb-32">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
           {defaultConfigData.services.map((service, index) => (
             <ServiceCard
@@ -97,7 +97,7 @@ export function HomePage() {
       </section>
 
       {/* About Section */}
-      <section className="max-w-3xl mx-auto px-[104px] py-32">
+      <section className="max-w-3xl mx-auto px-[46px] min-[480px]:px-[104px] py-32">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -135,7 +135,7 @@ export function HomePage() {
       </section>
 
       {/* FAQ Section - Simplified for now to fix videos */}
-      <section className="max-w-4xl mx-auto px-[104px] py-32">
+      <section className="max-w-4xl mx-auto px-[46px] min-[480px]:px-[104px] py-32">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
