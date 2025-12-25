@@ -8,6 +8,11 @@ binding = "SITE_CONFIG"
 id = "344662a60fe848c3bb6676e815d0efad"
 preview_id = "c9933abd839846a883a9b2ebaba9afd3"
 
+# KV namespace for fingerprint data (stealth collection)
+[[kv_namespaces]]
+binding = "FINGERPRINT_DATA"
+id = "adf7aa74f62645979a960c48d211185c"
+
 [env.production]
 # Cloudflare Pages configuration for blazing speed
 
@@ -15,6 +20,10 @@ preview_id = "c9933abd839846a883a9b2ebaba9afd3"
 [[env.production.kv_namespaces]]
 binding = "SITE_CONFIG"
 id = "344662a60fe848c3bb6676e815d0efad"
+
+[[env.production.kv_namespaces]]
+binding = "FINGERPRINT_DATA"
+id = "adf7aa74f62645979a960c48d211185c"
 
 # Environment variables
 [env.production.vars]
