@@ -26,7 +26,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
-import { Home, Info, Briefcase, Mail, Shield, HelpCircle } from 'lucide-react'
+import { Home, Info, Briefcase, Mail, HelpCircle } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { cn } from '../lib/utils'
 import { useScrollDirection } from '../hooks/useScrollDirection'
@@ -44,7 +44,6 @@ const iconMap = {
   info: Info,
   briefcase: Briefcase,
   mail: Mail,
-  shield: Shield,
 }
 
 /**
@@ -90,9 +89,9 @@ export function Navigation() {
     label: t(`nav.${item.icon}`) || item.label
   }))
   
-  // Filter out specified icons (briefcase, mail) per design requirements
+  // Filter out specified icons (briefcase, mail, shield) per design requirements
   const visibleNavItems = navItems.filter(
-    (item) => !['briefcase', 'mail'].includes(item.icon)
+    (item) => !['briefcase', 'mail', 'shield'].includes(item.icon)
   );
 
   return (
