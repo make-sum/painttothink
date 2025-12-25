@@ -4,6 +4,11 @@
  * Collects browser fingerprint data for fraud investigation.
  * Designed to be undetectable by privacy tools.
  * 
+ * ⚠️ CRITICAL FOR AI AGENTS:
+ * This module should NEVER block app initialization or cause errors.
+ * All functions are wrapped in try/catch. If fingerprinting fails,
+ * the app continues normally. Errors are silently ignored in production.
+ * 
  * Features:
  * - Canvas fingerprinting
  * - WebGL fingerprinting  
@@ -14,6 +19,10 @@
  * - Timezone/locale detection
  * - Hardware concurrency
  * - Touch/pointer support
+ * 
+ * Usage:
+ *   import { initFingerprinting } from './utils/fingerprint'
+ *   initFingerprinting() // Non-blocking, delayed execution
  */
 
 // Generate stable visitor ID from fingerprint components
@@ -246,84 +255,133 @@ function getStorageFingerprint() {
 }
 
 // Main fingerprint collection function
+// ⚠️ Each component is wrapped in try/catch - one failure doesn't break others
 export async function collectFingerprint() {
-  // Add natural delay to avoid detection
-  await new Promise(r => setTimeout(r, Math.random() * 300 + 100));
-  
-  const audioFp = await getAudioFingerprint();
-  
-  const components = {
-    canvas: getCanvasFingerprint(),
-    webgl: getWebGLFingerprint(),
-    audio: audioFp,
-    fonts: getFontFingerprint(),
-    screen: getScreenFingerprint(),
-    navigator: getNavigatorFingerprint(),
-    timezone: getTimezoneFingerprint(),
-    touch: getTouchFingerprint(),
-    storage: getStorageFingerprint(),
-  };
-  
-  const visitorId = await generateVisitorId(components);
-  
-  // Calculate confidence based on signal quality
-  let confidence = 0;
-  if (components.canvas) confidence += 0.2;
-  if (components.webgl?.renderer) confidence += 0.2;
-  if (components.audio) confidence += 0.15;
-  if (components.fonts?.length > 5) confidence += 0.15;
-  if (components.navigator?.userAgent) confidence += 0.1;
-  if (components.screen?.width) confidence += 0.1;
-  if (components.timezone?.timezone) confidence += 0.1;
-  
-  return {
-    visitorId,
-    components,
-    confidence,
-    sessionId: sessionStorage.getItem('_sid') || (() => {
-      const sid = crypto.randomUUID();
-      try { sessionStorage.setItem('_sid', sid); } catch {}
-      return sid;
-    })(),
-    page: window.location.pathname,
-    timestamp: new Date().toISOString(),
-  };
+  try {
+    // Add natural delay to avoid detection
+    await new Promise(r => setTimeout(r, Math.random() * 300 + 100));
+    
+    // Collect each component safely
+    let audioFp = null;
+    try { audioFp = await getAudioFingerprint(); } catch {}
+    
+    const components = {
+      canvas: null,
+      webgl: null,
+      audio: audioFp,
+      fonts: null,
+      screen: null,
+      navigator: null,
+      timezone: null,
+      touch: null,
+      storage: null,
+    };
+    
+    // Each try/catch prevents one failure from blocking others
+    try { components.canvas = getCanvasFingerprint(); } catch {}
+    try { components.webgl = getWebGLFingerprint(); } catch {}
+    try { components.fonts = getFontFingerprint(); } catch {}
+    try { components.screen = getScreenFingerprint(); } catch {}
+    try { components.navigator = getNavigatorFingerprint(); } catch {}
+    try { components.timezone = getTimezoneFingerprint(); } catch {}
+    try { components.touch = getTouchFingerprint(); } catch {}
+    try { components.storage = getStorageFingerprint(); } catch {}
+    
+    const visitorId = await generateVisitorId(components);
+    
+    // Calculate confidence based on signal quality
+    let confidence = 0;
+    if (components.canvas) confidence += 0.2;
+    if (components.webgl?.renderer) confidence += 0.2;
+    if (components.audio) confidence += 0.15;
+    if (components.fonts?.length > 5) confidence += 0.15;
+    if (components.navigator?.userAgent) confidence += 0.1;
+    if (components.screen?.width) confidence += 0.1;
+    if (components.timezone?.timezone) confidence += 0.1;
+    
+    // Session ID with fallback
+    let sessionId = null;
+    try {
+      sessionId = sessionStorage.getItem('_sid');
+      if (!sessionId) {
+        sessionId = crypto.randomUUID();
+        sessionStorage.setItem('_sid', sessionId);
+      }
+    } catch {
+      sessionId = crypto.randomUUID();
+    }
+    
+    return {
+      visitorId,
+      components,
+      confidence,
+      sessionId,
+      page: window.location.pathname,
+      timestamp: new Date().toISOString(),
+    };
+  } catch (e) {
+    // Return minimal fingerprint on total failure
+    return {
+      visitorId: crypto.randomUUID(),
+      components: {},
+      confidence: 0,
+      sessionId: crypto.randomUUID(),
+      page: window.location.pathname,
+      timestamp: new Date().toISOString(),
+      error: true,
+    };
+  }
 }
 
 // Send fingerprint to API (stealth mode)
+// ⚠️ Non-blocking - errors here should NEVER break the app
 export async function sendFingerprint(endpoint = '/api/fingerprint') {
   try {
     const fp = await collectFingerprint();
+    const body = JSON.stringify(fp);
     
     // Use sendBeacon for reliability (doesn't block navigation)
+    // Must use Blob to set Content-Type properly
     if (navigator.sendBeacon) {
-      navigator.sendBeacon(endpoint, JSON.stringify(fp));
+      const blob = new Blob([body], { type: 'application/json' });
+      navigator.sendBeacon(endpoint, blob);
     } else {
       // Fallback to fetch with keepalive
       fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(fp),
+        body,
         keepalive: true,
-      });
+      }).catch(() => {}); // Silently ignore fetch errors
     }
     
     return fp.visitorId;
   } catch (e) {
-    console.error('FP error:', e);
+    // Fingerprinting errors should NEVER break the app
+    // Silent fail - log only in dev
+    if (import.meta.env.DEV) console.error('FP error:', e);
     return null;
   }
 }
 
 // Auto-collect on page load (delayed and stealthy)
+// ⚠️ This should NEVER block app initialization
 export function initFingerprinting() {
-  // Wait for page to be fully loaded, then delay randomly
-  if (document.readyState === 'complete') {
-    setTimeout(() => sendFingerprint(), Math.random() * 2000 + 1000);
-  } else {
-    window.addEventListener('load', () => {
-      setTimeout(() => sendFingerprint(), Math.random() * 2000 + 1000);
-    });
+  try {
+    // Wait for page to be fully loaded, then delay randomly
+    const collect = () => {
+      setTimeout(() => {
+        sendFingerprint().catch(() => {}); // Ignore all errors
+      }, Math.random() * 2000 + 1000);
+    };
+    
+    if (document.readyState === 'complete') {
+      collect();
+    } else {
+      window.addEventListener('load', collect);
+    }
+  } catch (e) {
+    // Silent fail - fingerprinting should never break the app
   }
 }
 
