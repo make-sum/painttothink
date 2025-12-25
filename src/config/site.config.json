@@ -101,58 +101,135 @@
     "faq": {
       "title": {
         "en": "Frequently Asked Questions",
-        "ru": "Часті питання"
+        "ru": "Часто задаваемые вопросы",
+        "uk": "Часті питання"
       },
       "items": [
         {
           "question": {
             "en": "Can my landlord charge me for normal wear and tear?",
-            "ru": "Чи може мій власник стягувати з мене за звичайний знос?"
+            "ru": "Может ли мой арендодатель взимать плату за нормальный износ?",
+            "uk": "Чи може мій власник стягувати з мене за звичайний знос?"
           },
           "answer": {
             "en": "No. California law protects tenants from being charged for normal wear and tear. Minor scuffs, nail holes, and typical wear cannot be deducted from your security deposit.",
-            "ru": "Ні. Каліфорнійське законодавство захищає орендарів від стягнення за звичайний знос. Невеликі подряпини, дірки від цвяхів та типовий знос не можуть бути вирахувані з вашого депозиту."
-          }
+            "ru": "Нет. Калифорнийский закон защищает арендаторов от взимания платы за нормальный износ. Небольшие царапины, отверстия от гвоздей и типичный износ не могут быть вычтены из вашего залога.",
+            "uk": "Ні. Каліфорнійське законодавство захищає орендарів від стягнення за звичайний знос. Невеликі подряпини, дірки від цвяхів та типовий знос не можуть бути вирахувані з вашого депозиту."
+          },
+          "citation": {
+            "en": "\"No deduction may be made for...ordinary wear and tear.\"",
+            "ru": "«Никакие вычеты не могут быть сделаны за...обычный износ.»",
+            "uk": "«Жодні вирахування не можуть бути зроблені за...звичайний знос.»"
+          },
+          "lawCode": "Cal. Civ. Code § 1950.5(e)",
+          "lawUrl": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?sectionNum=1950.5.&lawCode=CIV"
         },
         {
           "question": {
             "en": "Who is responsible for peeling paint?",
-            "ru": "Хто відповідає за облущування фарби?"
+            "ru": "Кто несет ответственность за отслаивающуюся краску?",
+            "uk": "Хто відповідає за облущування фарби?"
           },
           "answer": {
             "en": "Your landlord. Peeling paint is a habitability issue. They must maintain the property in habitable condition, including fixing peeling or damaged paint.",
-            "ru": "Ваш власник. Облущування фарби — це питання придатності для проживання. Вони повинні підтримувати нерухомість у придатному стані, включаючи виправлення облущеної або пошкодженої фарби."
-          }
+            "ru": "Ваш арендодатель. Отслаивающаяся краска — это вопрос пригодности для проживания. Они обязаны поддерживать недвижимость в пригодном состоянии, включая ремонт отслаивающейся или поврежденной краски.",
+            "uk": "Ваш власник. Облущування фарби — це питання придатності для проживання. Вони повинні підтримувати нерухомість у придатному стані, включаючи виправлення облущеної або пошкодженої фарби."
+          },
+          "citation": {
+            "en": "\"The landlord of a dwelling shall put it in a fit condition for human habitation and repair all subsequent dilapidations.\"",
+            "ru": "«Арендодатель жилья обязан привести его в состояние, пригодное для проживания, и устранять все последующие повреждения.»",
+            "uk": "«Орендодавець житла зобов'язаний привести його у стан, придатний для проживання, та усувати всі подальші пошкодження.»"
+          },
+          "lawCode": "Cal. Civ. Code § 1941",
+          "lawUrl": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?sectionNum=1941.&lawCode=CIV"
         },
         {
           "question": {
             "en": "Do I need permission to paint my rental?",
-            "ru": "Чи потрібен мені дозвіл на фарбування моєї оренди?"
+            "ru": "Нужно ли мне разрешение на покраску арендуемой квартиры?",
+            "uk": "Чи потрібен мені дозвіл на фарбування моєї оренди?"
           },
           "answer": {
             "en": "It depends on your lease. Some landlords allow painting with approval, others require restoration to original colors. Always check your lease agreement first.",
-            "ru": "Це залежить від вашого договору оренди. Деякі власники дозволяють фарбування з дозволу, інші вимагають відновлення до оригінальних кольорів. Завжди спочатку перевіряйте свій договір оренди."
-          }
+            "ru": "Это зависит от вашего договора аренды. Некоторые арендодатели разрешают покраску с одобрения, другие требуют восстановления оригинальных цветов. Всегда сначала проверяйте ваш договор аренды.",
+            "uk": "Це залежить від вашого договору оренди. Деякі власники дозволяють фарбування з дозволу, інші вимагають відновлення до оригінальних кольорів. Завжди спочатку перевіряйте свій договір оренди."
+          },
+          "citation": {
+            "en": "\"Any deductions for repair of damages...shall be reasonable in relation to the damage.\"",
+            "ru": "«Любые вычеты за ремонт повреждений...должны быть соразмерны ущербу.»",
+            "uk": "«Будь-які вирахування за ремонт пошкоджень...мають бути співмірними зі збитком.»"
+          },
+          "lawCode": "Cal. Civ. Code § 1950.5(b)(2)",
+          "lawUrl": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?sectionNum=1950.5.&lawCode=CIV"
         },
         {
           "question": {
             "en": "What if I need to paint before moving out?",
-            "ru": "Що робити, якщо мені потрібно пофарбувати перед виїздом?"
+            "ru": "Что делать, если мне нужно покрасить перед выездом?",
+            "uk": "Що робити, якщо мені потрібно пофарбувати перед виїздом?"
           },
           "answer": {
             "en": "Our touch-up service can help restore walls to move-in condition. We match original colors and ensure you get your full deposit back.",
-            "ru": "Наша послуга підфарбовування може допомогти відновити стіни до стану на момент заселення. Ми підбираємо оригінальні кольори та гарантуємо повернення вашого депозиту."
+            "ru": "Наша услуга подкрашивания поможет восстановить стены до состояния при заселении. Мы подбираем оригинальные цвета и гарантируем возврат вашего полного залога.",
+            "uk": "Наша послуга підфарбовування може допомогти відновити стіни до стану на момент заселення. Ми підбираємо оригінальні кольори та гарантуємо повернення вашого депозиту."
+          },
+          "citation": {
+            "en": "\"The landlord shall return the security within 21 days after the tenant has vacated.\"",
+            "ru": "«Арендодатель обязан вернуть залог в течение 21 дня после выезда арендатора.»",
+            "uk": "«Орендодавець зобов'язаний повернути заставу протягом 21 дня після виїзду орендаря.»"
+          },
+          "lawCode": "Cal. Civ. Code § 1950.5(g)",
+          "lawUrl": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?sectionNum=1950.5.&lawCode=CIV"
+        },
+        {
+          "question": {
+            "en": "Do you offer services in Russian?",
+            "ru": "Предлагаете ли вы услуги на русском языке?",
+            "uk": "Чи надаєте ви послуги російською мовою?"
+          },
+          "answer": {
+            "en": "Yes! Our team includes Russian speakers. We provide clear communication in Russian from consultation to completion.",
+            "ru": "Да! В нашей команде есть русскоязычные сотрудники. Мы обеспечиваем четкое общение на русском языке от консультации до завершения.",
+            "uk": "Так! Наша команда включає тих, хто розмовляє російською. Ми забезпечуємо чітке спілкування російською від консультації до завершення."
           }
         },
         {
           "question": {
-            "en": "Do you offer services in Ukrainian?",
-            "ru": "Чи надаєте ви послуги русском мовою?"
+            "en": "Can my landlord deduct for repainting if I lived there for years?",
+            "ru": "Может ли арендодатель вычесть за перекраску, если я жил там много лет?",
+            "uk": "Чи може орендодавець вирахувати за перефарбування, якщо я жив там роками?"
           },
           "answer": {
-            "en": "Yes! Our team includes Ukrainian speakers. We provide clear communication in Ukrainian from consultation to completion.",
-            "ru": "Так! Наша команда включає тих, хто розмовляє русском. Ми забезпечуємо чітке спілкування русском від консультації до завершення."
-          }
+            "en": "No. Paint has a limited useful life (typically 2-3 years). If you lived in the unit for several years, repainting is considered normal wear and tear, not damage.",
+            "ru": "Нет. Краска имеет ограниченный срок службы (обычно 2-3 года). Если вы проживали в квартире несколько лет, перекраска считается нормальным износом, а не повреждением.",
+            "uk": "Ні. Фарба має обмежений термін служби (зазвичай 2-3 роки). Якщо ви прожили в квартирі кілька років, перефарбування вважається звичайним зносом, а не пошкодженням."
+          },
+          "citation": {
+            "en": "\"The landlord may not assert a claim against the tenant for...deterioration which results from normal wear and tear.\"",
+            "ru": "«Арендодатель не может предъявлять претензии арендатору за...ухудшение, которое является результатом нормального износа.»",
+            "uk": "«Орендодавець не може пред'являти претензії орендарю за...погіршення, яке є результатом нормального зносу.»"
+          },
+          "lawCode": "Cal. Civ. Code § 1950.5(e)",
+          "lawUrl": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?sectionNum=1950.5.&lawCode=CIV"
+        },
+        {
+          "question": {
+            "en": "What if my landlord refuses to fix peeling paint?",
+            "ru": "Что делать, если арендодатель отказывается ремонтировать отслаивающуюся краску?",
+            "uk": "Що робити, якщо орендодавець відмовляється ремонтувати облущену фарбу?"
+          },
+          "answer": {
+            "en": "You have legal remedies. After proper notice, you may repair and deduct, or in serious cases, withhold rent until repairs are made.",
+            "ru": "У вас есть законные средства защиты. После надлежащего уведомления вы можете произвести ремонт и вычесть стоимость, или в серьезных случаях удерживать арендную плату до выполнения ремонта.",
+            "uk": "У вас є законні засоби захисту. Після належного повідомлення ви можете провести ремонт і вирахувати вартість, або в серйозних випадках утримувати орендну плату до виконання ремонту."
+          },
+          "citation": {
+            "en": "\"If...the landlord neglects to do so, the tenant may repair the same himself...and deduct the expenses.\"",
+            "ru": "«Если...арендодатель не выполняет ремонт, арендатор может произвести ремонт самостоятельно...и вычесть расходы.»",
+            "uk": "«Якщо...орендодавець не виконує ремонт, орендар може провести ремонт самостійно...і вирахувати витрати.»"
+          },
+          "lawCode": "Cal. Civ. Code § 1942",
+          "lawUrl": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?sectionNum=1942.&lawCode=CIV"
         }
       ]
     },

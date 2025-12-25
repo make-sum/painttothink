@@ -152,7 +152,22 @@ export function HomePage() {
                   {item.question}
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground pb-4">
-                  {item.answer}
+                  <p className="mb-3">{item.answer}</p>
+                  {item.citation && (
+                    <blockquote className="border-l-2 border-accent pl-4 mt-3 italic text-sm opacity-80">
+                      {item.citation}
+                      {item.lawUrl && item.lawCode && (
+                        <> — <a 
+                          href={item.lawUrl} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="underline hover:text-accent transition-colors font-medium not-italic"
+                        >
+                          {item.lawCode}
+                        </a></>
+                      )}
+                    </blockquote>
+                  )}
                 </AccordionContent>
               </AccordionItem>
             ))}

@@ -68,23 +68,49 @@
     "items": [
       {
         "question": "Can my landlord charge me for normal wear and tear?",
-        "answer": "No. California law protects tenants from being charged for normal wear and tear. Minor scuffs, nail holes, and typical wear cannot be deducted from your security deposit."
+        "answer": "No. California law protects tenants from being charged for normal wear and tear. Minor scuffs, nail holes, and typical wear cannot be deducted from your security deposit.",
+        "citation": "\"No deduction may be made for...ordinary wear and tear.\"",
+        "lawCode": "Cal. Civ. Code § 1950.5(e)",
+        "lawUrl": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?sectionNum=1950.5.&lawCode=CIV"
       },
       {
         "question": "Who is responsible for peeling paint?",
-        "answer": "Your landlord. Peeling paint is a habitability issue. They must maintain the property in habitable condition, including fixing peeling or damaged paint."
+        "answer": "Your landlord. Peeling paint is a habitability issue. They must maintain the property in habitable condition, including fixing peeling or damaged paint.",
+        "citation": "\"The landlord of a dwelling shall put it in a fit condition for human habitation and repair all subsequent dilapidations.\"",
+        "lawCode": "Cal. Civ. Code § 1941",
+        "lawUrl": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?sectionNum=1941.&lawCode=CIV"
       },
       {
         "question": "Do I need permission to paint my rental?",
-        "answer": "It depends on your lease. Some landlords allow painting with approval, others require restoration to original colors. Always check your lease agreement first."
+        "answer": "It depends on your lease. Some landlords allow painting with approval, others require restoration to original colors. Always check your lease agreement first.",
+        "citation": "\"Any deductions for repair of damages...shall be reasonable in relation to the damage.\"",
+        "lawCode": "Cal. Civ. Code § 1950.5(b)(2)",
+        "lawUrl": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?sectionNum=1950.5.&lawCode=CIV"
       },
       {
         "question": "What if I need to paint before moving out?",
-        "answer": "Our touch-up service can help restore walls to move-in condition. We match original colors and ensure you get your full deposit back."
+        "answer": "Our touch-up service can help restore walls to move-in condition. We match original colors and ensure you get your full deposit back.",
+        "citation": "\"The landlord shall return the security within 21 days after the tenant has vacated.\"",
+        "lawCode": "Cal. Civ. Code § 1950.5(g)",
+        "lawUrl": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?sectionNum=1950.5.&lawCode=CIV"
       },
       {
         "question": "Do you offer services in Russian?",
         "answer": "Yes! Our team includes Russian speakers. We provide clear communication in Russian from consultation to completion."
+      },
+      {
+        "question": "Can my landlord deduct for repainting if I lived there for years?",
+        "answer": "No. Paint has a limited useful life (typically 2-3 years). If you lived in the unit for several years, repainting is considered normal wear and tear, not damage.",
+        "citation": "\"The landlord may not assert a claim against the tenant for...deterioration which results from normal wear and tear.\"",
+        "lawCode": "Cal. Civ. Code § 1950.5(e)",
+        "lawUrl": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?sectionNum=1950.5.&lawCode=CIV"
+      },
+      {
+        "question": "What if my landlord refuses to fix peeling paint?",
+        "answer": "You have legal remedies. After proper notice, you may repair and deduct, or in serious cases, withhold rent until repairs are made.",
+        "citation": "\"If...the landlord neglects to do so, the tenant may repair the same himself...and deduct the expenses.\"",
+        "lawCode": "Cal. Civ. Code § 1942",
+        "lawUrl": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?sectionNum=1942.&lawCode=CIV"
       },
       {
         "question": "How long does it take to paint an apartment?",
