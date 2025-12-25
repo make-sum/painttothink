@@ -21,10 +21,12 @@ function AppContent() {
 
   useEffect(() => {
     // Check URL params for config editor
-    // Supports ?config=true, ?config=t, or just ?config
+    // Supports ?config=true, ?config=t, ?config=1, or just ?config
     const params = new URLSearchParams(window.location.search)
     const configParam = params.get('config')
-    if (configParam === 'true' || configParam === 't' || configParam === '') {
+    // params.has() returns true even for ?config with no value
+    // params.get() returns '' for ?config with no value
+    if (params.has('config') && (configParam === '' || configParam === 'true' || configParam === 't' || configParam === '1')) {
       setShowConfig(true)
     }
   }, [])
