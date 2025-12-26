@@ -3,7 +3,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react'
 const LanguageContext = createContext()
 
 export function LanguageProvider({ children }) {
-  const languages = ['en', 'ru', 'uk'] // 3 languages: English, Russian, Ukrainian
+  const languages = ['en', 'ru'] // 2 languages: English, Russian
   
   const [language, setLanguage] = useState(() => {
     // Check localStorage first
@@ -11,14 +11,16 @@ export function LanguageProvider({ children }) {
     if (saved && languages.includes(saved)) {
       return saved
     }
+    // Migrate 'uk' (Ukrainian) to 'en' (English) if found
+    if (saved === 'uk') {
+      localStorage.setItem('language', 'en')
+      return 'en'
+    }
     
     // Check browser language
     const browserLang = navigator.language || navigator.userLanguage
     if (browserLang.startsWith('ru')) {
       return 'ru'
-    }
-    if (browserLang.startsWith('uk')) {
-      return 'uk'
     }
     
     // Default to English

@@ -22,9 +22,10 @@ export function HomePage() {
   const { t, language } = useTranslation()
   
   // Get FAQ items directly from translations
-  const faqItems = (language === 'ru' 
-    ? ruTranslations?.faq?.items
-    : enTranslations?.faq?.items) || []
+  const faqItems = (
+    language === 'ru' ? ruTranslations?.faq?.items :
+    enTranslations?.faq?.items
+  ) || []
   
   // Debug: Log config to see what's loading
   useEffect(() => {

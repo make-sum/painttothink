@@ -1,12 +1,10 @@
 import { useLanguage } from '../contexts/LanguageContext'
 import enTranslations from '../translations/en.json'
 import ruTranslations from '../translations/ru.json'
-import ukTranslations from '../translations/uk.json'
 
 const translations = {
   en: enTranslations,
-  ru: ruTranslations,
-  uk: ukTranslations
+  ru: ruTranslations
 }
 
 export function useTranslation() {
