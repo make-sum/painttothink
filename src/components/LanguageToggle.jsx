@@ -12,9 +12,9 @@ export function LanguageToggle({ className }) {
   const nextIndex = (currentIndex + 1) % languages.length
   const nextLanguage = languages[nextIndex]
   
-  // Get icon for next language (showing what will be selected next)
-  const getNextLanguageIcon = () => {
-    switch (nextLanguage) {
+  // Get icon for current language
+  const getCurrentLanguageIcon = () => {
+    switch (language) {
       case 'ru':
         return <span className="text-lg font-bold" aria-label="Russian">RU</span>
       case 'en':
@@ -46,10 +46,7 @@ export function LanguageToggle({ className }) {
       aria-label={`Switch to ${getNextLanguageName()}`}
       title={`Switch to ${getNextLanguageName()}`}
     >
-      {getNextLanguageIcon()}
-      <span className="text-xs font-medium uppercase">
-        {language.toUpperCase()}
-      </span>
+      {getCurrentLanguageIcon()}
     </button>
   )
 }
