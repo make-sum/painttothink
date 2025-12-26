@@ -6,24 +6,18 @@ export function LanguageProvider({ children }) {
   const languages = ['en', 'ru'] // 2 languages: English, Russian
   
   const [language, setLanguage] = useState(() => {
-    // Check localStorage first
+    // Check localStorage (already set by inline script in index.html)
     const saved = localStorage.getItem('language')
     if (saved && languages.includes(saved)) {
       return saved
     }
-    // Migrate 'uk' (Ukrainian) to 'ru' (Russian) if found
+    // Migrate 'uk' (Ukrainian) to 'ru' (Russian) if found (legacy support)
     if (saved === 'uk') {
       localStorage.setItem('language', 'ru')
       return 'ru'
     }
     
-    // Check browser language
-    const browserLang = navigator.language || navigator.userLanguage
-    if (browserLang.startsWith('ru')) {
-      return 'ru'
-    }
-    
-    // Default to English
+    // Default to English (should rarely happen as index.html script sets it)
     return 'en'
   })
 

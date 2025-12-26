@@ -1,5 +1,25 @@
-// Cloudflare Workers function for config management
-// Handles GET and PUT requests for site configuration
+/**
+ * Cloudflare Pages Function: Config Management API
+ * =================================================
+ * 
+ * This function handles GET and PUT requests for site configuration.
+ * Configuration is stored in Cloudflare KV for persistence across deployments.
+ * 
+ * Endpoints:
+ * - GET /api/config/get - Retrieve current site configuration
+ * - PUT /api/config/update - Update site configuration (requires auth)
+ * 
+ * Configuration Priority:
+ * 1. KV Storage (Cloudflare KV) - Persistent, survives deployments
+ * 2. Default Config - Fallback if KV is empty (defined in this file)
+ * 
+ * Note: The application currently uses src/config/site.config.json directly
+ * via useConfig hook. This API is available for dynamic config updates.
+ * 
+ * To update KV storage:
+ * 1. Use the config editor at ?config=t (requires password)
+ * 2. Or make a PUT request to /api/config/update with Authorization header
+ */
 
 export async function onRequest(context) {
   const { request, env, params } = context;
@@ -18,12 +38,17 @@ export async function onRequest(context) {
   }
 
   try {
-    // Get config
+    /**
+     * GET /api/config/get
+     * Retrieves site configuration from KV storage or returns default
+     */
     if (action === 'get' && request.method === 'GET') {
-      // Try to get config from KV first
+      // Priority 1: Try to get config from Cloudflare KV storage
+      // KV persists across deployments and can be updated via API
       const storedConfig = await env.SITE_CONFIG.get('config');
       
       if (storedConfig) {
+        // Return stored config from KV
         return new Response(storedConfig, {
           headers: {
             ...corsHeaders,
@@ -32,7 +57,8 @@ export async function onRequest(context) {
         });
       }
       
-      // If no stored config, return default
+      // Priority 2: If no stored config in KV, return default configuration
+      // This default config is used as a fallback for new deployments
       const defaultConfig = {
         site: {
           name: "Paint To Think",
@@ -135,11 +161,16 @@ export async function onRequest(context) {
       });
     }
     
-    // Update config
+    /**
+     * PUT /api/config/update
+     * Updates site configuration in Cloudflare KV storage
+     * Requires authentication via Authorization header
+     */
     if (action === 'update' && request.method === 'PUT') {
-      // Check authorization
+      // Check authorization - prevents unauthorized config updates
       const authHeader = request.headers.get('Authorization');
-      const expectedAuth = 'Bearer admin123'; // In production, use env.CONFIG_PASSWORD
+      // TODO: In production, use env.CONFIG_PASSWORD from wrangler.toml
+      const expectedAuth = 'Bearer admin123';
       
       if (authHeader !== expectedAuth) {
         return new Response(JSON.stringify({ error: 'Unauthorized' }), {
@@ -151,10 +182,11 @@ export async function onRequest(context) {
         });
       }
       
-      // Parse and validate the new config
+      // Parse and validate the new config from request body
       const newConfig = await request.json();
       
-      // Store in KV
+      // Store updated config in Cloudflare KV
+      // This persists across deployments and is the source of truth
       await env.SITE_CONFIG.put('config', JSON.stringify(newConfig));
       
       return new Response(JSON.stringify({ success: true, message: 'Config updated successfully' }), {

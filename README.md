@@ -11,7 +11,7 @@ A production-ready Single Page Application template built for **Cloudflare Pages
 - ⚡ **React 18 + Vite** - Fast development and builds
 - 🎨 **Tailwind CSS** - Utility-first styling
 - ✨ **Framer Motion** - Smooth animations
-- 🌙 **Dark/Light Mode** - System-aware theming
+- 🌙 **Dark/Light Mode** - Intelligent theme detection with priority-based system
 - 📱 **Responsive** - Mobile-first design
 - 🔧 **Config Editor** - Live site customization (`?config=t`)
 - 🌍 **i18n Ready** - Multi-language support (EN/RU/UK)
@@ -79,7 +79,17 @@ npx wrangler pages deploy dist --project-name=YOUR_PROJECT
 ### Site Content
 Edit `src/config/site.config.json` or use the visual editor.
 
-### Theme Colors
+### Theme System
+
+The application features an intelligent theme detection system with the following priority:
+
+1. **Previous Visit Preference** (localStorage) - User's explicit theme choice
+2. **Browser/Device Preference** - Respects OS-level theme settings (e.g., macOS Dark Mode)
+3. **Default to Light Mode** - New visitors see light mode by default
+
+The theme is applied instantly via inline script in `index.html` to prevent flash of unstyled content (FOUC).
+
+**Theme Colors**
 Edit CSS variables in `src/index.css`:
 ```css
 :root {
@@ -87,7 +97,15 @@ Edit CSS variables in `src/index.css`:
   --foreground: 0 0% 6.67%;
   --accent: 217 91% 60%;
 }
+
+.dark {
+  --background: 0 0% 6.67%;
+  --foreground: 0 0% 100%;
+}
 ```
+
+**Theme Toggle**
+Users can manually toggle themes using the theme toggle button in the navigation. This preference is saved to localStorage and persists across sessions.
 
 ### Config Editor Access
 - URL: `https://your-site.com?config=t`

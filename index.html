@@ -34,12 +34,55 @@
     <title>Paint To Think</title>
   </head>
   <body>
-    <!-- Instant theme loading to prevent flash -->
+    <!--
+      Instant Theme Loading Script
+      ============================
+      This script runs before React hydration to prevent theme flash (FOUC - Flash of Unstyled Content).
+      
+      Theme Detection Priority:
+      1. Previous visit preference (localStorage) - user's explicit choice
+      2. Browser/device system preference (prefers-color-scheme)
+      3. Default to light mode if no preference is set
+      
+      This ensures the correct theme class is applied immediately, before any content renders.
+    -->
     <script>
       (function() {
-        const theme = localStorage.getItem('theme') || 
-          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-        document.documentElement.classList.add(theme);
+        // Priority 1: Check for previous visit preference (user's explicit choice)
+        const saved = localStorage.getItem('theme');
+        if (saved === 'light' || saved === 'dark') {
+          document.documentElement.classList.add(saved);
+          return;
+        }
+        
+        // Priority 2: Check browser/device system preference
+        // Respects user's OS-level theme setting (e.g., macOS Dark Mode)
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.classList.add('dark');
+          return;
+        }
+        
+        // Priority 3: Default to light mode for new visitors
+        // Light mode is better for accessibility and readability
+        document.documentElement.classList.add('light');
+      })();
+    </script>
+    
+    <!-- Instant language detection to prevent browser auto-translation -->
+    <script>
+      (function() {
+        const saved = localStorage.getItem('language');
+        if (saved === 'en' || saved === 'ru') {
+          document.documentElement.lang = saved;
+          return;
+        }
+        // Check browser languages
+        const langs = navigator.languages || [navigator.language || 'en'];
+        const primaryLang = langs[0]?.toLowerCase() || 'en';
+        // Russian, Ukrainian, Belarusian -> ru
+        const lang = /^(ru|uk|be)/.test(primaryLang) ? 'ru' : 'en';
+        document.documentElement.lang = lang;
+        try { localStorage.setItem('language', lang); } catch {}
       })();
     </script>
     
