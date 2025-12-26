@@ -123,6 +123,13 @@
       {
         "question": "Do you provide a warranty on your work?",
         "answer": "Yes, we provide a warranty on all our work. If any issues arise with paint quality during the warranty period, we'll fix them at no charge."
+      },
+      {
+        "question": "What are use cases in CA where end to end painting is covered by the landlord?",
+        "answer": "Landlords must pay for painting when it's needed for habitability: peeling paint, lead paint hazards, or substandard conditions. They also typically pay for repainting between long-term tenants (typically after 2-3 years) as normal wear and tear.",
+        "citation": "\"The landlord of a dwelling shall put it in a fit condition for human habitation and repair all subsequent dilapidations.\"",
+        "lawCode": "Cal. Civ. Code § 1941",
+        "lawUrl": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?sectionNum=1941.&lawCode=CIV"
       }
     ]
   }
