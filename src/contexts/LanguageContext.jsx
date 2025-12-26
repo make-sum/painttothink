@@ -11,10 +11,10 @@ export function LanguageProvider({ children }) {
     if (saved && languages.includes(saved)) {
       return saved
     }
-    // Migrate 'uk' (Ukrainian) to 'en' (English) if found
+    // Migrate 'uk' (Ukrainian) to 'ru' (Russian) if found
     if (saved === 'uk') {
-      localStorage.setItem('language', 'en')
-      return 'en'
+      localStorage.setItem('language', 'ru')
+      return 'ru'
     }
     
     // Check browser language
